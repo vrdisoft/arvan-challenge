@@ -1,10 +1,15 @@
 import React from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+
+import Login from "./page/login";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Login />} />
+      <Route path="*" element={<Navigate to="/login" replace={true} />} />
+    </Routes>
   );
 }
 
