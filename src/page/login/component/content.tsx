@@ -1,13 +1,28 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { login, register } from "../../../api/login";
+type ResponsType = {
+  data: {
+    user: {
+      token: string;
+    };
+  };
+};
+
+import { useToken } from "../../../context/tokenContext";
 
 function Content({ isLoginPage }: { isLoginPage: boolean }) {
   const [validated, setValidated] = useState<boolean>(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
   const emailInputRef = useRef() as any;
+  const userInputRef = useRef() as any;
+  const passwordInputRef = useRef() as any;
   const emailRegex = useRef(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i).current;
+  const { token, loginContext } = useToken();
+  const navigate = useNavigate();
 
   const validateEmail = () => {
     if (!emailRegex.test(emailInputRef.current.value.replace(/\s/g, ""))) {
@@ -15,6 +30,34 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
       return false;
     } else {
       setIsInvalidEmail(false);
+      return true;
+    }
+  };
+
+  const handleLogin = () => {
+    if (isLoginPage) {
+      const user = {
+        email: emailInputRef.current.value,
+        password: passwordInputRef.current.value,
+      };
+      login({ user })
+        .then((res) => {
+          loginContext((res as ResponsType)?.data?.user?.token);
+          navigate("../articles", { replace: true });
+        })
+        .catch((err) => {
+          console.log(err.data.errors);
+        });
+    } else {
+      const user = {
+        email: emailInputRef.current.value,
+        password: passwordInputRef.current.value,
+        username: userInputRef.current.value,
+      };
+      register({ user }).then((res) => {
+        loginContext((res as ResponsType)?.data?.user?.token);
+        navigate("../articles", { replace: true });
+      });
     }
   };
 
@@ -25,7 +68,9 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
       event.stopPropagation();
     }
     setValidated(true);
-    validateEmail();
+    if (validateEmail()) {
+      handleLogin();
+    }
     event.preventDefault();
   };
 
@@ -42,7 +87,7 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
               <Form.Label type="invalid" className="text-Style">
                 User
               </Form.Label>
-              <Form.Control type="text" required />
+              <Form.Control type="text" required ref={userInputRef} />
               <Form.Control.Feedback
                 type="invalid"
                 className="text-feedback-style"
@@ -75,7 +120,7 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
             <Form.Label type="invalid" className="text-Style">
               Password
             </Form.Label>
-            <Form.Control type="password" required />
+            <Form.Control type="password" required ref={passwordInputRef} />
             <Form.Control.Feedback
               type="invalid"
               className="text-feedback-style"

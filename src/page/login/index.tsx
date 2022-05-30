@@ -5,12 +5,17 @@ import "./style/login.sass";
 import Header from "./component/header";
 import Content from "./component/content";
 import Footer from "./component/footer";
+import { useToken } from "../../context/tokenContext";
 
 function Login() {
   const location = useLocation();
   const [isLoginPage, setIsLoginPage] = useState(true);
+  const { logoutContext } = useToken();
   useEffect(() => {
     const isLogin = location.pathname === "/login" ? true : false;
+    if (isLogin) {
+      logoutContext();
+    }
     setIsLoginPage(isLogin);
   }, [location.pathname]);
 
