@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import "../login/style/login.sass";
+import "./style/articles.sass";
 import { useToken } from "../../context/tokenContext";
 import { articles } from "../../api/articles";
 import CustomTable from "../../component/table";
 import Action from "./component/action";
 import { Article, ResponseType, TableArticle } from "./type";
 import Header from "../../component/header";
+import SideBar from "../../component/sideBar";
 
 function Articles() {
   const [data, setData] = useState<Article[]>([]);
@@ -71,7 +74,18 @@ function Articles() {
   return (
     <>
       <Header username="saeed" />
-      <CustomTable<TableArticle> columns={columns} data={convertData(data)} />
+      <Row>
+        <SideBar />
+        <Col md={9} lg={10} sm={11} style={{ paddingRight: 0, paddingLeft: 0 }}>
+          <div className="articles-page-title">All Posts</div>
+          <div className="articles-table">
+            <CustomTable<TableArticle>
+              columns={columns}
+              data={convertData(data)}
+            />
+          </div>
+        </Col>
+      </Row>
     </>
   );
 }
