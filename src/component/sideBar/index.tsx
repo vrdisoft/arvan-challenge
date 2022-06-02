@@ -1,18 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import "./style/sideBar.sass";
 
 function Sidebar() {
+  const location = useLocation();
+  const [articlesClassName, setArticlesClassName] = useState<string>("");
+  const [newArticlesClassName, setNewArticlesClassName] = useState<string>("");
+  useEffect(() => {
+    if (location.pathname === "/articles") {
+      setArticlesClassName("link-continer active-link");
+      setNewArticlesClassName("link-continer");
+    } else {
+      setArticlesClassName("link-continer");
+      setNewArticlesClassName("link-continer  active-link");
+    }
+  }, [location.pathname]);
+
   return (
     <Col md={3} lg={2} sm={1} style={{ paddingRight: 0 }}>
       <div className="sidebar-continer">
         <div className="sidebar-title">Post</div>
-        <div className="link-continer active-link">
+        <div className={articlesClassName}>
           <NavLink to="/articles" className="link">
             All Articles
           </NavLink>
         </div>
-        <div className="link-continer">
+        <div className={newArticlesClassName}>
           <NavLink to="/articles/create" className="link">
             New Article
           </NavLink>
