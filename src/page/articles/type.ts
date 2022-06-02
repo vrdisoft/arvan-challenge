@@ -6,6 +6,7 @@ export type Author = {
 };
 
 export type Article = {
+  slug: string;
   author: Author;
   body: string;
   createdAt: Date;

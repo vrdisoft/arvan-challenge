@@ -1,24 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useReducer } from "react";
 import { useLocation } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 import "./style/articles.sass";
 import { useToken } from "../../context/tokenContext";
 import { articles } from "../../api/articles";
 import CustomTable from "../../component/table";
-import Action from "./component/action";
 import { Article, ResponseType, TableArticle } from "./type";
 import Header from "../../component/header";
 import SideBar from "../../component/sideBar";
+import { useAppState } from "../../context/articleStateContext";
+import { useDispatch } from "../../context/articleDispatcherContext";
 
 function Articles() {
-  const [data, setData] = useState<Article[]>([]);
-  useEffect(() => {
-    articles({ limit: 10, offset: 0 }).then((res: ResponseType) => {
-      setData(res?.data?.articles);
-    });
-  }, []);
+  const [data, setData] = useState<TableArticle[]>([]);
+  const appState = useAppState();
+  const dispatch = useDispatch();
 
   const convertData = (articlesData: Article[]): TableArticle[] => {
     return articlesData.map((item, index) => {
@@ -34,11 +33,19 @@ function Articles() {
         description: item.description,
         username: item.author.username,
         tagList: item.tagList,
+        slug: item.slug,
       };
     });
   };
 
-  const columns = [
+  useEffect(() => {
+    articles({ limit: 10, offset: 0 }).then((res: ResponseType) => {
+      const tableData = convertData(res?.data?.articles);
+      setData(tableData);
+    });
+  }, [appState.reload]);
+
+  const columns = useRef([
     {
       dataField: "id",
       text: "#",
@@ -64,25 +71,22 @@ function Articles() {
       dataField: "createdAt",
       text: "Created",
     },
-    {
-      dataField: "action",
-      text: "",
-      formatter: Action,
-    },
-  ];
+    // {
+    //   dataField: "action",
+    //   text: "",
+    //   formatter: Action,
+    // },
+  ]).current;
 
   return (
     <>
-      <Header username="saeed" />
+      <Header />
       <Row>
         <SideBar />
         <Col md={9} lg={10} sm={11} style={{ paddingRight: 0, paddingLeft: 0 }}>
           <div className="articles-page-title">All Posts</div>
           <div className="articles-table">
-            <CustomTable<TableArticle>
-              columns={columns}
-              data={convertData(data)}
-            />
+            <CustomTable<TableArticle> columns={columns} data={data} />
           </div>
         </Col>
       </Row>

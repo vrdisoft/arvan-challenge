@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import "./style/table.sass";
+import Action from "./action";
 
 type ColumnsType = {
   dataField: string;
@@ -23,6 +24,7 @@ function CustomTable<T>({ columns, data }: TableProps<T>) {
             {columns.map((item, index) => (
               <th key={item.dataField}>{item.text}</th>
             ))}
+            <th key={"action"}></th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +38,7 @@ function CustomTable<T>({ columns, data }: TableProps<T>) {
                       style={{ verticalAlign: "middle" }}
                     >
                       <span
+                        key={"sp" + index.toString() + colIndex.toString()}
                         className={colItem.maxlength ? "table-body-text" : ""}
                       >
                         {/* @ts-ignore: Unreachable code error*/}
@@ -50,6 +53,10 @@ function CustomTable<T>({ columns, data }: TableProps<T>) {
                   )}
                 </>
               ))}
+              <td key={"Action" + index.toString()}>
+                {/* @ts-ignore: Unreachable code error*/}
+                <Action item={dataItem} />
+              </td>
             </tr>
           ))}
         </tbody>
