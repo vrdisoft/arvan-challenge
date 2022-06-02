@@ -11,9 +11,9 @@ function Footer({ isLoginPage }: { isLoginPage: boolean }) {
         className="register-Now"
         onClick={() => {
           if (isLoginPage) {
-            navigate("../register", { replace: true });
+            navigate("/register", { replace: true });
           } else {
-            navigate("../login", { replace: true });
+            navigate("/login", { replace: true });
           }
         }}
       >

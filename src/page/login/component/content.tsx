@@ -8,6 +8,7 @@ type ResponsType = {
   data: {
     user: {
       token: string;
+      username: string;
     };
   };
 };
@@ -42,8 +43,9 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
       };
       login({ user })
         .then((res) => {
-          loginContext((res as ResponsType)?.data?.user?.token);
-          navigate("../articles", { replace: true });
+          const currentUser = (res as ResponsType)?.data?.user;
+          loginContext(currentUser?.token, currentUser?.username);
+          navigate("/articles", { replace: true });
         })
         .catch((err) => {
           console.log(err.data.errors);
@@ -55,8 +57,9 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
         username: userInputRef.current.value,
       };
       register({ user }).then((res) => {
-        loginContext((res as ResponsType)?.data?.user?.token);
-        navigate("../articles", { replace: true });
+        const currentUser = (res as ResponsType)?.data?.user;
+        loginContext(currentUser?.token, currentUser?.username);
+        navigate("/articles", { replace: true });
       });
     }
   };
