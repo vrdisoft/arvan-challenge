@@ -16,12 +16,9 @@ const request = ({
 }: {
   url: string;
   type?: string;
-  data: object;
+  data?: object;
 }) => {
-  //if (type !== "get") {
-  /* eslint-disable */
   axios.defaults.headers.common["Authorization"] = `Bearer ${retrieveStoredToken()}`;
-  //}
 
   return axios({
     method: type,
