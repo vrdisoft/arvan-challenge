@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import Row from "react-bootstrap/Row";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,6 +9,8 @@ import { addArticles, editArticles } from "../../../api/articles";
 import { TagType } from "./tag";
 import { getSelectedTags } from "../util";
 import { Article } from "../../articles/type";
+import { useDispatch } from "../../../context/articleDispatcherContext";
+import { createArticles } from "../../../stateManager/actionCreator";
 
 function ArticleForm({
   tagList,
@@ -27,6 +28,7 @@ function ArticleForm({
   const [description, setDescription] = useState<string>("");
   const [body, setBody] = useState<string>("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isNewArticlePage) {
@@ -59,6 +61,11 @@ function ArticleForm({
     };
     addArticles({ article: nawArticle })
       .then((res) => {
+        dispatch(
+          createArticles({
+            alertMessage: "Well done! Article created successfuly",
+          })
+        );
         navigate("/articles", { replace: true });
       })
       .catch((err) => {
@@ -75,7 +82,11 @@ function ArticleForm({
     };
     editArticles(slug, { article: editArticle })
       .then((res) => {
-        console.log(res);
+        dispatch(
+          createArticles({
+            alertMessage: "Well done! Article updated successfuly",
+          })
+        );
         navigate("/articles", { replace: true });
       })
       .catch((err) => {

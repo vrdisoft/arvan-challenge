@@ -18,6 +18,7 @@ const request = ({
   type?: string;
   data?: object;
 }) => {
+  /* eslint-disable */
   axios.defaults.headers.common["Authorization"] = `Bearer ${retrieveStoredToken()}`;
 
   return axios({

@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef, useReducer } from "react";
-import { useLocation } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 
 import "./style/articles.sass";
 import { useToken } from "../../context/tokenContext";
@@ -13,6 +11,7 @@ import Header from "../../component/header";
 import SideBar from "../../component/sideBar";
 import { useAppState } from "../../context/articleStateContext";
 import { useDispatch } from "../../context/articleDispatcherContext";
+import ArticleAlert from "./component/alert";
 
 function Articles() {
   const [data, setData] = useState<TableArticle[]>([]);
@@ -84,7 +83,14 @@ function Articles() {
       <Row>
         <SideBar />
         <Col md={9} lg={10} sm={11} style={{ paddingRight: 0, paddingLeft: 0 }}>
-          <div className="articles-page-title">All Posts</div>
+          <div className="articles-header-continer">
+            <div className="articles-page-title">All Posts</div>
+            <div className="articles-alert-continer">
+              {!!appState.alertMessage && (
+                <ArticleAlert message={appState.alertMessage} />
+              )}
+            </div>
+          </div>
           <div className="articles-table">
             <CustomTable<TableArticle> columns={columns} data={data} />
           </div>

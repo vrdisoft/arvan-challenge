@@ -2,11 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
 import "./style/newArticle.sass";
-import { useToken } from "../../context/tokenContext";
 import { tags, getArticle } from "../../api/articles";
 import Header from "../../component/header";
 import SideBar from "../../component/sideBar";
@@ -14,6 +10,8 @@ import Tag, { TagType } from "./component/tag";
 import ArticleForm from "./component/articleForm";
 import { sortTagList } from "./util";
 import { Article } from "../articles/type";
+import { useDispatch } from "../../context/articleDispatcherContext";
+import { clearAlertMessage } from "../../stateManager/actionCreator";
 
 const intiArticle: Article = {
   title: "",
@@ -37,6 +35,7 @@ function NewArticle() {
   const [slue, setSlue] = useState<string>("");
   const [article, setArticle] = useState<Article>(intiArticle);
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
   const getTags = () => {
     return tags().then((res) => {
@@ -81,6 +80,7 @@ function NewArticle() {
   useEffect(() => {
     const isNewArticle =
       location.pathname === "/articles/create" ? true : false;
+    dispatch(clearAlertMessage({ alertMessage: "" }));
     setIsNewArticlePage(isNewArticle);
     getTags().then((tagItems) => {
       getEditArticle(isNewArticle, tagItems);

@@ -20,7 +20,7 @@ function DeleteModal({
 
   const handleDelete = (event: any) => {
     deletArticles(row.item.slug).then(() => {
-      dispatch(deleteArticles());
+      dispatch(deleteArticles({ alertMessage: "Article deleted successfuly" }));
       onHide();
       event.stopPropagation();
     });
