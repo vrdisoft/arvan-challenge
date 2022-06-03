@@ -1,9 +1,9 @@
-import React, { useReducer } from "react";
+import React, { useReducer, Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import Login from "./page/login";
-import Articles from "./page/articles";
-import NewArticle from "./page/newArticle";
+import LazyArticles from "./page/articles";
+import LazyNewArticle from "./page/newArticle";
 import { useToken } from "./context/tokenContext";
 import "./App.sass";
 import { ProviderDispatchArticle } from "./context/articleDispatcherContext";
@@ -24,7 +24,21 @@ function App() {
               path="/articles"
               element={
                 isLoggedIn ? (
-                  <Articles />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <LazyArticles />
+                  </Suspense>
+                ) : (
+                  <Navigate to="/login" replace={true} />
+                )
+              }
+            />
+            <Route
+              path="/articles/page"
+              element={
+                isLoggedIn ? (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <LazyArticles />
+                  </Suspense>
                 ) : (
                   <Navigate to="/login" replace={true} />
                 )
@@ -34,7 +48,9 @@ function App() {
               path="/articles/create"
               element={
                 isLoggedIn ? (
-                  <NewArticle />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <LazyNewArticle />
+                  </Suspense>
                 ) : (
                   <Navigate to="/login" replace={true} />
                 )
@@ -44,7 +60,9 @@ function App() {
               path="/articles/edit"
               element={
                 isLoggedIn ? (
-                  <NewArticle />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <LazyNewArticle />
+                  </Suspense>
                 ) : (
                   <Navigate to="/login" replace={true} />
                 )
