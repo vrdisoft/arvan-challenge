@@ -15,7 +15,13 @@ type ResponsType = {
 
 import { useToken } from "../../../context/tokenContext";
 
-function Content({ isLoginPage }: { isLoginPage: boolean }) {
+function Content({
+  isLoginPage,
+  showInvalidAlert,
+}: {
+  isLoginPage: boolean;
+  showInvalidAlert: () => void;
+}) {
   const [validated, setValidated] = useState<boolean>(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
   const emailInputRef = useRef() as any;
@@ -35,32 +41,41 @@ function Content({ isLoginPage }: { isLoginPage: boolean }) {
     }
   };
 
-  const handleLogin = () => {
-    if (isLoginPage) {
-      const user = {
-        email: emailInputRef.current.value,
-        password: passwordInputRef.current.value,
-      };
-      login({ user })
-        .then((res) => {
-          const currentUser = (res as ResponsType)?.data?.user;
-          loginContext(currentUser?.token, currentUser?.username);
-          navigate("/articles", { replace: true });
-        })
-        .catch((err) => {
-          console.log(err.data.errors);
-        });
-    } else {
-      const user = {
-        email: emailInputRef.current.value,
-        password: passwordInputRef.current.value,
-        username: userInputRef.current.value,
-      };
-      register({ user }).then((res) => {
+  const submitLogin = () => {
+    const user = {
+      email: emailInputRef.current.value,
+      password: passwordInputRef.current.value,
+    };
+    login({ user })
+      .then((res) => {
         const currentUser = (res as ResponsType)?.data?.user;
         loginContext(currentUser?.token, currentUser?.username);
         navigate("/articles", { replace: true });
+      })
+      .catch((err) => {
+        showInvalidAlert();
+        console.log(err.data.errors);
       });
+  };
+
+  const submitRegister = () => {
+    const user = {
+      email: emailInputRef.current.value,
+      password: passwordInputRef.current.value,
+      username: userInputRef.current.value,
+    };
+    register({ user }).then((res) => {
+      const currentUser = (res as ResponsType)?.data?.user;
+      loginContext(currentUser?.token, currentUser?.username);
+      navigate("/articles", { replace: true });
+    });
+  };
+
+  const handleLogin = () => {
+    if (isLoginPage) {
+      submitLogin();
+    } else {
+      submitRegister();
     }
   };
 
