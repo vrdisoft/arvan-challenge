@@ -36,6 +36,16 @@ function NewArticle() {
   const [article, setArticle] = useState<Article>(intiArticle);
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 650);
+
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
 
   const getTags = () => {
     return tags().then((res) => {
@@ -61,7 +71,7 @@ function NewArticle() {
     });
   };
 
-  const getEditArticle = (isNewArticle: boolean, tagItems: TagType[]) => {
+  const getEditArticle = async (isNewArticle: boolean, tagItems: TagType[]) => {
     if (!isNewArticle) {
       const currentSlue = searchParams.get("slug") ?? "";
       getArticle(currentSlue)
@@ -112,17 +122,26 @@ function NewArticle() {
           </div>
           <div className="new-article-continer">
             <Row>
+              {!isDesktop && (
+                <Tag
+                  tagList={tagList}
+                  onChange={onChangeTagHandler}
+                  addTag={onAddTagHandler}
+                />
+              )}
               <ArticleForm
                 tagList={tagList}
                 isNewArticlePage={isNewArticlePage}
                 slue={slue}
                 article={article}
               />
-              <Tag
-                tagList={tagList}
-                onChange={onChangeTagHandler}
-                addTag={onAddTagHandler}
-              />
+              {!!isDesktop && (
+                <Tag
+                  tagList={tagList}
+                  onChange={onChangeTagHandler}
+                  addTag={onAddTagHandler}
+                />
+              )}
             </Row>
           </div>
         </Col>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
 import { TagType } from "./tag";
 import ErrorModal from "./modal";
@@ -29,6 +30,7 @@ function ArticleForm({
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [validated, setValidated] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,7 +41,7 @@ function ArticleForm({
       setDescription(article?.description);
       setBody(article?.body);
     }
-  }, [article.title]);
+  }, [article?.title]);
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch ((event as any).target.id) {
@@ -63,53 +65,54 @@ function ArticleForm({
     setErrorMessage(messege);
   };
 
-  const submitNewArticle = () => {
+  const submitNewArticle = async () => {
     const nawArticle = {
       title: title,
       description: description,
       body: body,
       tagList: getSelectedTags(tagList),
     };
-    addArticles({ article: nawArticle })
-      .then((res) => {
-        dispatch(
-          createArticles({
-            alertMessage: "Well done! Article created successfuly",
-          })
-        );
-        navigate("/articles", { replace: true });
-      })
-      .catch((err) => {
-        getErrorMessage(err?.data?.errors);
-        setModalShow(true);
-        console.log(err.data.errors);
-      });
+    try {
+      const respons = await addArticles({ article: nawArticle });
+      setLoading(false);
+      dispatch(
+        createArticles({
+          alertMessage: "Well done! Article created successfuly",
+        })
+      );
+      navigate("/articles", { replace: true });
+    } catch (err) {
+      getErrorMessage((err as any)?.data?.errors);
+      setModalShow(true);
+      setLoading(false);
+    }
   };
 
-  const submitEditArticle = (slug: string) => {
+  const submitEditArticle = async (slug: string) => {
     const editArticle = {
       title: title,
       description: description,
       body: body,
       tagList: getSelectedTags(tagList),
     };
-    editArticles(slug, { article: editArticle })
-      .then((res) => {
-        dispatch(
-          createArticles({
-            alertMessage: "Well done! Article updated successfuly",
-          })
-        );
-        navigate("/articles", { replace: true });
-      })
-      .catch((err) => {
-        getErrorMessage(err?.data?.errors);
-        setModalShow(true);
-        console.log(err.data.errors);
-      });
+    try {
+      const respons = await editArticles(slug, { article: editArticle });
+      setLoading(false);
+      dispatch(
+        createArticles({
+          alertMessage: "Well done! Article updated successfuly",
+        })
+      );
+      navigate("/articles", { replace: true });
+    } catch (err) {
+      getErrorMessage((err as any)?.data?.errors);
+      setModalShow(true);
+      setLoading(false);
+    }
   };
 
   const handleSubmitArticle = () => {
+    setLoading(true);
     if (isNewArticlePage) {
       submitNewArticle();
     } else {
@@ -183,7 +186,21 @@ function ArticleForm({
               Required field
             </Form.Control.Feedback>
           </Form.Group>
-          <Button variant="primary" type="submit" style={{ width: "99px" }}>
+          <Button
+            variant="primary"
+            type="submit"
+            style={{ width: "99px" }}
+            disabled={loading}
+          >
+            {loading && (
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            )}
             Submit
           </Button>
         </Form>

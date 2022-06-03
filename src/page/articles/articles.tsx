@@ -46,17 +46,20 @@ function Articles() {
       };
     });
   };
-  const getData = () => {
+  const getData = async () => {
     const activePage = Number(searchParams.get("page")) || 1;
     const offset = (activePage - 1) * PAGE_LIMIT;
-    articles({ params: { limit: PAGE_LIMIT, offset } }).then(
-      (res: ResponseType) => {
-        const tableData = convertData(res?.data?.articles, activePage);
-        setData(tableData);
-        //setArticlesCount(res?.data?.articlesCount);
-        setCurrentPage(activePage);
-      }
-    );
+    try {
+      const response: ResponseType = await articles({
+        params: { limit: PAGE_LIMIT, offset },
+      });
+      const tableData = convertData(response?.data?.articles, activePage);
+      setData(tableData);
+      //setArticlesCount(res?.data?.articlesCount);
+      setCurrentPage(activePage);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
