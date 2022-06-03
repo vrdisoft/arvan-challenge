@@ -52,9 +52,19 @@ function TablePagination({
   return (
     <div className="pagination-continer">
       <Pagination>
-        <Pagination.Prev />
+        <Pagination.Prev
+          disabled={activePage === 1}
+          onClick={() => {
+            pageItemClickHandle(activePage - 1);
+          }}
+        />
         {makePage()}
-        <Pagination.Next />
+        <Pagination.Next
+          disabled={pageNumber === activePage}
+          onClick={() => {
+            pageItemClickHandle(activePage + 1);
+          }}
+        />
       </Pagination>
     </div>
   );
