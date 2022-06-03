@@ -4,13 +4,14 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import "../style/newArticle.sass";
-import { addArticles, editArticles } from "../../../api/articles";
 import { TagType } from "./tag";
+import ErrorModal from "./modal";
+import "../style/newArticle.sass";
 import { getSelectedTags } from "../util";
 import { Article } from "../../articles/type";
-import { useDispatch } from "../../../context/articleDispatcherContext";
+import { addArticles, editArticles } from "../../../api/articles";
 import { createArticles } from "../../../stateManager/actionCreator";
+import { useDispatch } from "../../../context/articleDispatcherContext";
 
 function ArticleForm({
   tagList,
@@ -23,9 +24,11 @@ function ArticleForm({
   slue: string;
   article: Article;
 }) {
-  const [validated, setValidated] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
+  const [modalShow, setModalShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [validated, setValidated] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,6 +55,14 @@ function ArticleForm({
     }
   };
 
+  const getErrorMessage = (error: object) => {
+    let messege = "";
+    for (const [key, value] of Object.entries(error)) {
+      messege += `${key} ${value[0]}\r\n`;
+    }
+    setErrorMessage(messege);
+  };
+
   const submitNewArticle = () => {
     const nawArticle = {
       title: title,
@@ -69,6 +80,8 @@ function ArticleForm({
         navigate("/articles", { replace: true });
       })
       .catch((err) => {
+        getErrorMessage(err?.data?.errors);
+        setModalShow(true);
         console.log(err.data.errors);
       });
   };
@@ -90,6 +103,8 @@ function ArticleForm({
         navigate("/articles", { replace: true });
       })
       .catch((err) => {
+        getErrorMessage(err?.data?.errors);
+        setModalShow(true);
         console.log(err.data.errors);
       });
   };
@@ -172,6 +187,11 @@ function ArticleForm({
             Submit
           </Button>
         </Form>
+        <ErrorModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          message={errorMessage}
+        />
       </Col>
     </>
   );
