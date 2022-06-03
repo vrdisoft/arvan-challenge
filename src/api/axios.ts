@@ -16,24 +16,31 @@ const request = ({
 }: {
   url: string;
   type?: string;
-  data: object;
+  data?: object;
 }) => {
-  //if (type !== "get") {
   /* eslint-disable */
   axios.defaults.headers.common["Authorization"] = `Bearer ${retrieveStoredToken()}`;
-  //}
-
-  return axios({
-    method: type,
-    url: url,
-    data: data,
-  })
-    .then((result) => {
+  if (type === "get") {
+    return axios.get(url, data).then((result) => {
       return result;
     })
-    .catch((error) => {
-      throw error?.response;
-    });
+      .catch((error) => {
+        throw error?.response;
+      });
+  } else {
+    return axios({
+      method: type,
+      url: url,
+      data: data,
+    })
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        throw error?.response;
+      });
+  }
+
 };
 
 export default request;
