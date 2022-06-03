@@ -13,7 +13,10 @@ type Props = {
   state: AppStateType;
 };
 const ProviderStateArticle: React.FC<Props> = ({ state, ...rest }) => {
-  const appState = React.useMemo(() => state, [state]);
+  const appState = React.useMemo(
+    () => state,
+    [state.alertMessage, state.reload]
+  );
   return <AppStateContext.Provider value={appState} {...rest} />;
 };
 

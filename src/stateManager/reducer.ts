@@ -32,7 +32,7 @@ function handleEditArticles(state: AppStateType, payload: any) {
 }
 
 function handleClearAlertMessage(state: AppStateType, payload: any) {
-  return { ...state, alertMessage: payload.alertMessage };
+  return { ...state, alertMessage: "" };
 }
 
 const ACTION_HANDLERS = {
