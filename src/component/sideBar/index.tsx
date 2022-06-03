@@ -8,7 +8,10 @@ function Sidebar() {
   const [articlesClassName, setArticlesClassName] = useState<string>("");
   const [newArticlesClassName, setNewArticlesClassName] = useState<string>("");
   useEffect(() => {
-    if (location.pathname === "/articles") {
+    if (
+      location.pathname === "/articles" ||
+      location.pathname === "/articles/page"
+    ) {
       setArticlesClassName("link-continer active-link");
       setNewArticlesClassName("link-continer");
     } else {
@@ -18,7 +21,7 @@ function Sidebar() {
   }, [location.pathname]);
 
   return (
-    <Col md={12} lg={2} sm={12} xs={12}>
+    <Col md={12} lg={2} sm={12} style={{ paddingRight: "0" }}>
       <div className="sidebar-continer">
         <div className="sidebar-title">Post</div>
         <div className={articlesClassName}>
