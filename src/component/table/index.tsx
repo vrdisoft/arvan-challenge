@@ -2,6 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import "./style/table.sass";
 import Action from "./action";
+import Pagination from "./pagination";
 
 type ColumnsType = {
   dataField: string;
@@ -13,9 +14,16 @@ type ColumnsType = {
 interface TableProps<T> {
   columns: ColumnsType[];
   data: T[];
+  pageNumber: number;
+  activePage: number;
 }
 
-function CustomTable<T>({ columns, data }: TableProps<T>) {
+function CustomTable<T>({
+  columns,
+  data,
+  pageNumber,
+  activePage,
+}: TableProps<T>) {
   return (
     <>
       <Table responsive borderless>
@@ -53,14 +61,17 @@ function CustomTable<T>({ columns, data }: TableProps<T>) {
                   )}
                 </>
               ))}
-              <td key={"Action" + index.toString()}>
+              <td key={"ActionTD" + index.toString()}>
                 {/* @ts-ignore: Unreachable code error*/}
-                <Action item={dataItem} />
+                <Action key={"Action" + index.toString()} item={dataItem} />
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      {pageNumber > 1 && (
+        <Pagination pageNumber={pageNumber} activePage={activePage} />
+      )}
     </>
   );
 }
