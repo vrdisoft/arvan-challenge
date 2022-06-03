@@ -18,7 +18,7 @@ function Sidebar() {
   }, [location.pathname]);
 
   return (
-    <Col md={3} lg={2} sm={1} style={{ paddingRight: 0 }}>
+    <Col md={12} lg={2} sm={12} xs={12}>
       <div className="sidebar-continer">
         <div className="sidebar-title">Post</div>
         <div className={articlesClassName}>

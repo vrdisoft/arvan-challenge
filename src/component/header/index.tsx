@@ -12,7 +12,7 @@ function Header() {
   };
 
   return (
-    <Row>
+    <Row style={{ margin: "0" }}>
       <div className="header-continer">
         <div className="baner">Arvan Challenge</div>
         <div className="username">{`Welcome ${username}`}</div>

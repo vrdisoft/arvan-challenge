@@ -1,5 +1,8 @@
 @import "~bootstrap/scss/bootstrap"
 
+body
+    width: 100%
+    height: 100%
 @font-face
     font-family: HelveticaNeue
     src: local(HelveticaNeue)
@@ -10,7 +13,7 @@
 .app-continer
     width: 100%
     height: 100vh
-    
+
 .text-Style
     color: #373a3c
     font-family: HelveticaNeue
@@ -20,3 +23,26 @@
     color: #dc3545
     font-family: HelveticaNeue
     font-size: 16px
+
+@media only screen and (max-device-width: 480px)
+.sidebar-continer
+    flex-direction: row
+    height: 50px
+@media only screen and (device-width: 768px)
+.sidebar-continer
+    flex-direction: row
+    height: 50px
+
+@media only screen and (min-width: 992px)
+    .sidebar-continer
+        flex-direction: column
+        height: calc(100vh - 60px)
+@media only screen and (min-width: 1440px)
+    .sidebar-continer
+        flex-direction: column
+        height: calc(100vh - 60px)
+
+@media only screen and (min-width: 2000px)
+    .sidebar-continer
+        flex-direction: column
+        height: calc(100vh - 60px)

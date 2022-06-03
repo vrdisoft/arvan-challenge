@@ -80,7 +80,7 @@ function NewArticle() {
   useEffect(() => {
     const isNewArticle =
       location.pathname === "/articles/create" ? true : false;
-    dispatch(clearAlertMessage({ alertMessage: "" }));
+    dispatch(clearAlertMessage());
     setIsNewArticlePage(isNewArticle);
     getTags().then((tagItems) => {
       getEditArticle(isNewArticle, tagItems);
@@ -104,9 +104,9 @@ function NewArticle() {
   return (
     <>
       <Header />
-      <Row>
+      <Row id="new-articles-row">
         <SideBar />
-        <Col md={9} lg={10} sm={11} style={{ paddingRight: 0, paddingLeft: 0 }}>
+        <Col md={12} lg={10} sm={12}>
           <div className="new-article-page-title">
             {isNewArticlePage ? "New Article" : "Edit Article"}
           </div>
