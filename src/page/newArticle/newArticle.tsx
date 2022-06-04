@@ -12,6 +12,7 @@ import { sortTagList } from "./util";
 import { Article } from "../articles/type";
 import { useDispatch } from "../../context/articleDispatcherContext";
 import { clearAlertMessage } from "../../stateManager/actionCreator";
+import * as paths from "../../config/paths";
 
 const intiArticle: Article = {
   title: "",
@@ -89,7 +90,7 @@ function NewArticle() {
 
   useEffect(() => {
     const isNewArticle =
-      location.pathname === "/articles/create" ? true : false;
+      location.pathname === paths.ARTICLES_CREATE ? true : false;
     dispatch(clearAlertMessage());
     setIsNewArticlePage(isNewArticle);
     getTags().then((tagItems) => {

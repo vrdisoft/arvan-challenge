@@ -3,6 +3,7 @@ import Pagination from "react-bootstrap/Pagination";
 import { useDispatch } from "../../context/articleDispatcherContext";
 import { clearAlertMessage } from "../../stateManager/actionCreator";
 import "./style/table.scss";
+import * as paths from "../../config/paths";
 
 function TablePagination({
   pageNumber,
@@ -18,7 +19,7 @@ function TablePagination({
     if (number !== 1) {
       navigate(
         {
-          pathname: "/articles/page",
+          pathname: paths.ARTICLES_PAGE,
           search: createSearchParams({
             page: number.toString(),
           }).toString(),

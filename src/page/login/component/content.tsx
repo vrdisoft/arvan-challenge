@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 import { login, register } from "../../../api/login";
+import * as paths from "../../../config/paths";
+import { useToken } from "../../../context/tokenContext";
 type ResponsType = {
   data: {
     user: {
@@ -14,8 +16,6 @@ type ResponsType = {
     };
   };
 };
-
-import { useToken } from "../../../context/tokenContext";
 
 function Content({
   isLoginPage,
@@ -54,7 +54,7 @@ function Content({
       const currentUser = (response as ResponsType)?.data?.user;
       loginContext(currentUser?.token, currentUser?.username);
       setLoading(false);
-      navigate("/articles", { replace: true });
+      navigate(paths.ARTICLES, { replace: true });
     } catch (e) {
       if ((e as any).status === 403) {
         showInvalidAlert();
@@ -73,7 +73,7 @@ function Content({
       const currentUser = (response as ResponsType)?.data?.user;
       loginContext(currentUser?.token, currentUser?.username);
       setLoading(false);
-      navigate("/articles", { replace: true });
+      navigate(paths.ARTICLES, { replace: true });
     } catch (e) {
       console.log(e);
     }

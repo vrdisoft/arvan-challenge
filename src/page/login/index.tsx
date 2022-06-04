@@ -9,6 +9,7 @@ import Footer from "./component/footer";
 import { useToken } from "../../context/tokenContext";
 import { useDispatch } from "../../context/articleDispatcherContext";
 import { clearAlertMessage } from "../../stateManager/actionCreator";
+import * as paths from "../../config/paths";
 
 function Login() {
   const location = useLocation();
@@ -17,7 +18,7 @@ function Login() {
   const { logoutContext } = useToken();
   const dispatch = useDispatch();
   useEffect(() => {
-    const isLogin = location.pathname === "/login" ? true : false;
+    const isLogin = location.pathname === paths.LOGIN ? true : false;
     if (isLogin) {
       logoutContext();
     }

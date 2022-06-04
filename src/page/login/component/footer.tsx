@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import * as paths from "../../../config/paths";
 
 function Footer({ isLoginPage }: { isLoginPage: boolean }) {
   const navigate = useNavigate();
@@ -11,9 +12,9 @@ function Footer({ isLoginPage }: { isLoginPage: boolean }) {
         className="register-Now"
         onClick={() => {
           if (isLoginPage) {
-            navigate("/register", { replace: true });
+            navigate(paths.REGISTER, { replace: true });
           } else {
-            navigate("/login", { replace: true });
+            navigate(paths.LOGIN, { replace: true });
           }
         }}
       >
