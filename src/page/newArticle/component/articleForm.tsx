@@ -7,7 +7,6 @@ import Spinner from "react-bootstrap/Spinner";
 
 import { TagType } from "./tag";
 import ErrorModal from "./modal";
-import "../style/newArticle.sass";
 import { getSelectedTags } from "../util";
 import { Article } from "../../articles/type";
 import { addArticles, editArticles } from "../../../api/articles";

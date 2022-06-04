@@ -1,0 +1,67 @@
+@use "../../../style/base";
+
+#articles-row {
+    margin: 0 0 0 -12px;
+    height: calc(100% - 60px);
+}
+
+#articles-continer {
+    height: 100%;
+    overflow: auto;
+
+    .articles-header-continer {
+        display: flex;
+        align-items: center;
+    }
+
+    .articles-page-title {
+        @include base.textStyle($color: base.$black, $fontSize: 40px);
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+
+    .articles-alert-continer {
+        margin-left: auto;
+        margin-right: 30px;
+        margin-top: 20px;
+    }
+}
+
+.articles-table {
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-right: 30px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    #articles-continer {
+        height: calc(100% - 50px);
+    }
+}
+
+@media only screen and (device-width: 768px) {
+    #articles-continer {
+        height: calc(100% - 50px);
+    }
+
+}
+
+@media only screen and (min-width: 480px) {
+    #articles-continer {
+        height: calc(100% - 50px);
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    #articles-continer {
+        height: calc(100% - 50px);
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+    #articles-continer {
+        height: 100%
+    }
+}

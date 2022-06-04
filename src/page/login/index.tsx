@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 
-import "./style/login.sass";
+import "./style/login.scss";
 import Header from "./component/header";
 import Content from "./component/content";
 import Footer from "./component/footer";

@@ -86,11 +86,7 @@ function Action(item: any) {
   return (
     <>
       <Dropdown>
-        <Dropdown.Toggle
-          style={{ backgroundColor: "#5bc0de", border: "1px solid #5bc0de" }}
-        >
-          {` ... `}
-        </Dropdown.Toggle>
+        <Dropdown.Toggle className="action-dropdown">{` ... `}</Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item
             onClick={(event) => {

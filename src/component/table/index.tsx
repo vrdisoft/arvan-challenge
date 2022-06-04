@@ -1,6 +1,5 @@
-import React from "react";
 import Table from "react-bootstrap/Table";
-import "./style/table.sass";
+import "./style/table.scss";
 import Action from "./action";
 import Pagination from "./pagination";
 

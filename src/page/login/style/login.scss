@@ -1,0 +1,79 @@
+@use "../../../style/base";
+
+.continer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+
+    .login-alert {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+    }
+
+    .login-Failed-User-name-andor-Password-is-invalid {
+        @include base.textStyle($color: #9f4f48);
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        text-align: left;
+
+        .text-style {
+            font-weight: bold;
+        }
+    }
+
+    .login-continer {
+        width: 450px;
+        background-color: #eceeef;
+        border-radius: 4px;
+    }
+
+    .login-title {
+        @include base.textStyle($color: base.$warm-grey, $fontSize: 47px);
+        text-align: center;
+        margin-top: 37px;
+    }
+
+    .dont-have-account {
+        text-align: left;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.13;
+        letter-spacing: normal;
+        display: inline-block;
+        margin-left: 30px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+    .register-Now {
+        @include base.textStyle($color: base.$charcoal-grey);
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.19;
+        letter-spacing: normal;
+        text-align: left;
+        padding-left: 10px;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+
+    .content-row {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .login-button {
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-top: 12px;
+    }
+}

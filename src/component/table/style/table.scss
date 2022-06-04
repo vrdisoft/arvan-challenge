@@ -1,0 +1,24 @@
+@use "../../../style/base";
+
+#table-td {
+    vertical-align: middle;
+}
+
+.table-body-text {
+    display: inline-block;
+    width: 10em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pagination-continer {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.action-dropdown {
+    background-color: base.$dark-sky-blue;
+    border: 1px solid base.$dark-sky-blue;
+}

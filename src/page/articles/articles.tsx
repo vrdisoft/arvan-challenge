@@ -1,19 +1,17 @@
-import { useState, useEffect, useRef, useReducer } from "react";
+import { useState, useEffect, useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useSearchParams } from "react-router-dom";
 
-import "./style/articles.sass";
-import { useToken } from "../../context/tokenContext";
+import "./style/articles.scss";
 import { articles } from "../../api/articles";
 import CustomTable from "../../component/table";
-import { Article, ResponseType, TableArticle } from "./type";
 import Header from "../../component/header";
 import SideBar from "../../component/sideBar";
-import { useAppState } from "../../context/articleStateContext";
-import { useDispatch } from "../../context/articleDispatcherContext";
 import ArticleAlert from "./component/alert";
 import TagList from "./component/tagList";
+import { Article, ResponseType, TableArticle } from "./type";
+import { useAppState } from "../../context/articleStateContext";
 
 const PAGE_LIMIT = 10;
 
@@ -23,7 +21,6 @@ function Articles() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const appState = useAppState();
-  const dispatch = useDispatch();
 
   const convertData = (
     articlesData: Article[],
@@ -100,7 +97,7 @@ function Articles() {
       <Header />
       <Row id="articles-row">
         <SideBar />
-        <Col md={12} lg={10} sm={12}>
+        <Col md={12} lg={10} sm={12} id="articles-continer">
           <div className="articles-header-continer">
             <div className="articles-page-title">All Posts</div>
             <div className="articles-alert-continer">

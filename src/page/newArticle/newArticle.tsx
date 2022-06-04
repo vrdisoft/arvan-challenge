@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "./style/newArticle.sass";
+import "./style/newArticle.scss";
 import { tags, getArticle } from "../../api/articles";
 import Header from "../../component/header";
 import SideBar from "../../component/sideBar";
@@ -116,7 +116,7 @@ function NewArticle() {
       <Header />
       <Row id="new-articles-row">
         <SideBar />
-        <Col md={12} lg={10} sm={12}>
+        <Col md={12} lg={10} sm={12} id="new-article-continer">
           <div className="new-article-page-title">
             {isNewArticlePage ? "New Article" : "Edit Article"}
           </div>
