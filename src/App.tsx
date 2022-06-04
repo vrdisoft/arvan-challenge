@@ -1,9 +1,8 @@
 import React, { useReducer, Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import Login from "./page/login";
-import LazyArticles from "./page/articles";
-import LazyNewArticle from "./page/newArticle";
+import routes from "./config/routes";
+import * as paths from "./config/paths";
 import { useToken } from "./context/tokenContext";
 import "./App.scss";
 import { ProviderDispatchArticle } from "./context/articleDispatcherContext";
@@ -18,57 +17,35 @@ function App() {
       <ProviderStateArticle state={state}>
         <div className="app-continer">
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Login />} />
-            <Route
-              path="/articles"
-              element={
-                isLoggedIn ? (
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <LazyArticles />
-                  </Suspense>
-                ) : (
-                  <Navigate to="/login" replace={true} />
-                )
+            {routes.map((item) => {
+              if (item.mustBeLogin) {
+                return (
+                  <Route
+                    key={item.title}
+                    path={item.path}
+                    element={
+                      isLoggedIn ? (
+                        React.createElement(item.component)
+                      ) : (
+                        <Navigate to={paths.LOGIN} replace={true} />
+                      )
+                    }
+                  />
+                );
+              } else {
+                return (
+                  <Route
+                    key={item.title}
+                    path={item.path}
+                    element={React.createElement(item.component)}
+                  />
+                );
               }
-            />
+            })}
             <Route
-              path="/articles/page"
-              element={
-                isLoggedIn ? (
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <LazyArticles />
-                  </Suspense>
-                ) : (
-                  <Navigate to="/login" replace={true} />
-                )
-              }
+              path="*"
+              element={<Navigate to={paths.LOGIN} replace={true} />}
             />
-            <Route
-              path="/articles/create"
-              element={
-                isLoggedIn ? (
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <LazyNewArticle />
-                  </Suspense>
-                ) : (
-                  <Navigate to="/login" replace={true} />
-                )
-              }
-            />
-            <Route
-              path="/articles/edit"
-              element={
-                isLoggedIn ? (
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <LazyNewArticle />
-                  </Suspense>
-                ) : (
-                  <Navigate to="/login" replace={true} />
-                )
-              }
-            />
-            <Route path="*" element={<Navigate to="/login" replace={true} />} />
           </Routes>
         </div>
       </ProviderStateArticle>

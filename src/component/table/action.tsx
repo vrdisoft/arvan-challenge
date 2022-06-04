@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import { deletArticles } from "../../api/articles";
 import { useDispatch } from "../../context/articleDispatcherContext";
 import { deleteArticles } from "../../stateManager/actionCreator";
+import * as paths from "../../config/paths";
 
 function DeleteModal({
   show,
@@ -73,7 +74,7 @@ function Action(item: any) {
   const handleEdit = (row: any, event: any) => {
     navigate(
       {
-        pathname: "/articles/edit",
+        pathname: paths.ARTICLES_EDIT,
         search: createSearchParams({
           slug: row.item.slug,
         }).toString(),

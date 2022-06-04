@@ -12,6 +12,7 @@ import { Article } from "../../articles/type";
 import { addArticles, editArticles } from "../../../api/articles";
 import { createArticles } from "../../../stateManager/actionCreator";
 import { useDispatch } from "../../../context/articleDispatcherContext";
+import * as paths from "../../../config/paths";
 
 function ArticleForm({
   tagList,
@@ -79,7 +80,7 @@ function ArticleForm({
           alertMessage: "Well done! Article created successfuly",
         })
       );
-      navigate("/articles", { replace: true });
+      navigate(paths.ARTICLES, { replace: true });
     } catch (err) {
       getErrorMessage((err as any)?.data?.errors);
       setModalShow(true);
@@ -102,7 +103,7 @@ function ArticleForm({
           alertMessage: "Well done! Article updated successfuly",
         })
       );
-      navigate("/articles", { replace: true });
+      navigate(paths.ARTICLES, { replace: true });
     } catch (err) {
       getErrorMessage((err as any)?.data?.errors);
       setModalShow(true);

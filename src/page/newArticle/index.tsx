@@ -1,5 +1,12 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 
-const LazyNewArticle = lazy(() => import("./newArticle"));
+const NewArticle = lazy(() => import("./newArticle"));
 
+function LazyNewArticle() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NewArticle />
+    </Suspense>
+  );
+}
 export default LazyNewArticle;
