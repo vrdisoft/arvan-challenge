@@ -1,0 +1,81 @@
+@use "../../../style/base";
+
+.sidebar-continer {
+    height: calc(100vh - 60px);
+    background-color: base.$water-blue;
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-title {
+        @include base.textStyle($color: #fff, $fontSize: 22px);
+        padding: 13px 20px 13px 20px;
+    }
+
+    .link-continer {
+        padding: 10px 35px 10px 35px;
+
+        .link {
+            @include base.textStyle($color: white, $fontSize: 18px);
+            text-decoration: none;
+        }
+    }
+
+    .active-link {
+        background-color: base.$white-15;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    .sidebar-continer {
+        flex-direction: row;
+        height: 50px;
+
+        .sidebar-title {
+            padding: 7px 20px 13px 20px;
+        }
+    }
+}
+
+@media only screen and (device-width: 768px) {
+    .sidebar-continer {
+        flex-direction: row;
+        height: 50px;
+
+        .sidebar-title {
+            padding: 7px 20px 13px 20px;
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .sidebar-continer {
+        flex-direction: row;
+        height: 50px;
+
+        .sidebar-title {
+            padding: 7px 20px 13px 20px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .sidebar-continer {
+        flex-direction: row;
+        height: 50px;
+
+        .sidebar-title {
+            padding: 7px 20px 13px 20px;
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .sidebar-continer {
+        flex-direction: column;
+        height: calc(100vh - 60px);
+
+        .sidebar-title {
+            padding: 7px 20px 13px 20px;
+        }
+    }
+}

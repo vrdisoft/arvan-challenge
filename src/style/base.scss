@@ -1,0 +1,17 @@
+$dark-sky-blue: #5bc0de;
+$black: #000;
+$water-blue: #1c7cd5;
+$charcoal-grey: #373a3c;
+$pinkish-grey: #e7cecd;
+$brick: #cb2e25;
+$warm-grey: #707070;
+$light-grey-green: #d5e6c7;
+$military-green: #4b713d;
+$pale-red: #d9534f;
+$white-15: rgba(255, 255, 255, 0.15);
+
+@mixin textStyle($color: DarkGray, $fontSize: 16px) {
+    color: $color;
+    font-family: HelveticaNeue;
+    font-size: $fontSize;
+}

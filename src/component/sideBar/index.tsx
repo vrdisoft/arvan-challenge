@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Col from "react-bootstrap/Col";
-import "./style/sideBar.sass";
+import "./style/sideBar.scss";
 
 function Sidebar() {
   const location = useLocation();

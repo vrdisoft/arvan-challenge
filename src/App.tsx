@@ -5,7 +5,7 @@ import Login from "./page/login";
 import LazyArticles from "./page/articles";
 import LazyNewArticle from "./page/newArticle";
 import { useToken } from "./context/tokenContext";
-import "./App.sass";
+import "./App.scss";
 import { ProviderDispatchArticle } from "./context/articleDispatcherContext";
 import { ProviderStateArticle } from "./context/articleStateContext";
 import { reducer, INIT_STATE } from "./stateManager/reducer";

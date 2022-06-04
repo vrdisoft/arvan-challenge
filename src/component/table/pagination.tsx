@@ -1,9 +1,8 @@
-import React from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Pagination from "react-bootstrap/Pagination";
 import { useDispatch } from "../../context/articleDispatcherContext";
 import { clearAlertMessage } from "../../stateManager/actionCreator";
-import "./style/table.sass";
+import "./style/table.scss";
 
 function TablePagination({
   pageNumber,

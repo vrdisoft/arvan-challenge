@@ -1,0 +1,28 @@
+@use "./style/base";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+@font-face {
+    font-family: HelveticaNeue;
+    src: local(HelveticaNeue);
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+.app-continer {
+    width: 100%;
+    height: 100vh;
+}
+
+.text-Style {
+    @include base.textStyle($color: base.$charcoal-grey);
+}
+
+.text-feedback-style {
+    @include base.textStyle($color: base.$brick);
+}
