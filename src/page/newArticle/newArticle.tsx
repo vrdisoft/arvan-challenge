@@ -13,6 +13,7 @@ import { Article } from "../articles/type";
 import { useDispatch } from "../../context/articleDispatcherContext";
 import { clearAlertMessage } from "../../stateManager/actionCreator";
 import * as paths from "../../config/paths";
+import PageTitle from "../../component/pageTitle";
 
 const intiArticle: Article = {
   title: "",
@@ -118,9 +119,7 @@ function NewArticle() {
       <Row id="new-articles-row">
         <SideBar />
         <Col md={12} lg={10} sm={12} id="new-article-continer">
-          <div className="new-article-page-title">
-            {isNewArticlePage ? "New Article" : "Edit Article"}
-          </div>
+          <PageTitle />
           <div className="new-article-continer">
             <Row>
               {!isDesktop && (

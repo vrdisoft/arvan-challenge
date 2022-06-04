@@ -12,6 +12,7 @@ import ArticleAlert from "./component/alert";
 import TagList from "./component/tagList";
 import { Article, ResponseType, TableArticle } from "./type";
 import { useAppState } from "../../context/articleStateContext";
+import PageTitle from "../../component/pageTitle";
 
 const PAGE_LIMIT = 10;
 
@@ -99,7 +100,7 @@ function Articles() {
         <SideBar />
         <Col md={12} lg={10} sm={12} id="articles-continer">
           <div className="articles-header-continer">
-            <div className="articles-page-title">All Posts</div>
+            <PageTitle />
             <div className="articles-alert-continer">
               {!!appState.alertMessage && (
                 <ArticleAlert message={appState.alertMessage} />
