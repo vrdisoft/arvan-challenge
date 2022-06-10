@@ -115,37 +115,31 @@ function NewArticle() {
 
   return (
     <>
-      <Header />
-      <Row id="new-articles-row">
-        <SideBar />
-        <Col md={12} lg={10} sm={12} id="new-article-continer">
-          <PageTitle />
-          <div className="new-article-continer">
-            <Row>
-              {!isDesktop && (
-                <Tag
-                  tagList={tagList}
-                  onChange={onChangeTagHandler}
-                  addTag={onAddTagHandler}
-                />
-              )}
-              <ArticleForm
-                tagList={tagList}
-                isNewArticlePage={isNewArticlePage}
-                slue={slue}
-                article={article}
-              />
-              {!!isDesktop && (
-                <Tag
-                  tagList={tagList}
-                  onChange={onChangeTagHandler}
-                  addTag={onAddTagHandler}
-                />
-              )}
-            </Row>
-          </div>
-        </Col>
-      </Row>
+      <PageTitle />
+      <div className="new-article-continer">
+        <Row>
+          {!isDesktop && (
+            <Tag
+              tagList={tagList}
+              onChange={onChangeTagHandler}
+              addTag={onAddTagHandler}
+            />
+          )}
+          <ArticleForm
+            tagList={tagList}
+            isNewArticlePage={isNewArticlePage}
+            slue={slue}
+            article={article}
+          />
+          {!!isDesktop && (
+            <Tag
+              tagList={tagList}
+              onChange={onChangeTagHandler}
+              addTag={onAddTagHandler}
+            />
+          )}
+        </Row>
+      </div>
     </>
   );
 }

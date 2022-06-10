@@ -8,6 +8,7 @@ import "./App.scss";
 import { ProviderDispatchArticle } from "./context/articleDispatcherContext";
 import { ProviderStateArticle } from "./context/articleStateContext";
 import { reducer, INIT_STATE } from "./stateManager/reducer";
+import Layout from "./layout";
 
 function App() {
   const { isLoggedIn } = useToken();
@@ -25,7 +26,7 @@ function App() {
                     path={item.path}
                     element={
                       isLoggedIn ? (
-                        React.createElement(item.component)
+                        <Layout component={item.component} />
                       ) : (
                         <Navigate to={paths.LOGIN} replace={true} />
                       )

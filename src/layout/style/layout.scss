@@ -1,0 +1,45 @@
+@use "../../style/base";
+
+#layout-main-row {
+    margin: 0 0 0 -12px;
+    height: calc(100% - 60px);
+}
+
+#layout-continer {
+    height: 100%;
+    overflow: auto;
+}
+
+
+@media only screen and (max-device-width: 480px) {
+    #layout-continer {
+        height: calc(100% - 50px);
+    }
+}
+
+@media only screen and (device-width: 768px) {
+    #layout-continer {
+        height: calc(100% - 50px);
+    }
+
+}
+
+@media only screen and (min-width: 480px) {
+    #layout-continer {
+        height: calc(100% - 50px);
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    #layout-continer {
+        height: calc(100% - 50px);
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+    #layout-continer {
+        height: 100%
+    }
+}

@@ -95,28 +95,22 @@ function Articles() {
 
   return (
     <>
-      <Header />
-      <Row id="articles-row">
-        <SideBar />
-        <Col md={12} lg={10} sm={12} id="articles-continer">
-          <div className="articles-header-continer">
-            <PageTitle />
-            <div className="articles-alert-continer">
-              {!!appState.alertMessage && (
-                <ArticleAlert message={appState.alertMessage} />
-              )}
-            </div>
-          </div>
-          <div className="articles-table">
-            <CustomTable<TableArticle>
-              columns={columns}
-              data={data}
-              pageNumber={Math.ceil(articlesCount / PAGE_LIMIT)}
-              activePage={currentPage}
-            />
-          </div>
-        </Col>
-      </Row>
+      <div className="articles-header-continer">
+        <PageTitle />
+        <div className="articles-alert-continer">
+          {!!appState.alertMessage && (
+            <ArticleAlert message={appState.alertMessage} />
+          )}
+        </div>
+      </div>
+      <div className="articles-table">
+        <CustomTable<TableArticle>
+          columns={columns}
+          data={data}
+          pageNumber={Math.ceil(articlesCount / PAGE_LIMIT)}
+          activePage={currentPage}
+        />
+      </div>
     </>
   );
 }
